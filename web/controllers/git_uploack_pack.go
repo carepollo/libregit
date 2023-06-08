@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 
@@ -13,7 +14,8 @@ import (
 func HttpGitUploadPack(ctx *fiber.Ctx) error {
 	ctx.Request().Header.Set("Content-Type", "application/x-git-uploack-pack-result")
 	uploadRequest := packp.NewUploadPackRequest()
-	body := ctx.Request().BodyStream()
+	body := bytes.NewReader(ctx.Request().Body())
+
 	err := uploadRequest.Decode(body)
 	if err != nil {
 		log.Println(err)

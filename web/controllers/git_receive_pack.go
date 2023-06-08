@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 
@@ -13,7 +14,8 @@ import (
 func HttpGitReceivePack(ctx *fiber.Ctx) error {
 	ctx.Request().Header.Set("Content-Type", "application/x-git-receive-pack-result")
 	receiveRequest := packp.NewReferenceUpdateRequest()
-	body := ctx.Request().BodyStream()
+	body := bytes.NewReader(ctx.Request().Body())
+
 	err := receiveRequest.Decode(body)
 	if err != nil {
 		log.Println(err)
