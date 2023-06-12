@@ -10,8 +10,11 @@ import (
 func RegisterEndpoints(app *fiber.App) {
 	app.Use(middlewares.Logger)
 
+	// serve files
+	app.Static("/", "./assets")
+
 	// web views
-	// app.Get("")
+	app.Get("", controllers.RenderHome)
 	// app.Get("/login")
 	// app.Get("/register")
 	// app.Get("/explore")
@@ -21,7 +24,7 @@ func RegisterEndpoints(app *fiber.App) {
 	repos := app.Group("/:user/:repo")
 
 	// git operations
-	repos.Use(middlewares.AuthWriteRepo).Get("/info/refs", controllers.HttpGitInfoRefs)
+	repos.Get("/info/refs", controllers.HttpGitInfoRefs)
 	repos.Post("/git-upload-pack", controllers.HttpGitUploadPack)
 	repos.Post("/git-receive-pack", controllers.HttpGitReceivePack)
 }
