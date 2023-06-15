@@ -11,11 +11,11 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Use(middlewares.Logger)
 
 	// serve files
-	app.Static("/", "./assets")
+	app.Static("/assets", "./assets")
 
 	// web views
 	app.Get("", controllers.RenderHome)
-	// app.Get("/login")
+	app.Get("/login", controllers.RenderLogin)
 	// app.Get("/register")
 	// app.Get("/explore")
 	// app.Get("/new")

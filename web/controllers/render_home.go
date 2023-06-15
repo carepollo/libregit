@@ -5,7 +5,5 @@ import (
 )
 
 func RenderHome(ctx *fiber.Ctx) error {
-	return ctx.Render("home", fiber.Map{
-		"name": "maiki",
-	}, "main")
+	return ctx.Render("home", nil, "main")
 }

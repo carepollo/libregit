@@ -1,4 +1,4 @@
 librecode
 .env
 node_modules
-assets/index.css
+# assets/index.css

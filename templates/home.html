@@ -1,6 +1,50 @@
-{{template "partials/header"}}
+<div class="container">
+    <div class="text-center m-5">
+        <img src="/assets/favicon.svg" class="w-25 h-25" />
+        <h1 class="display-3">Open Platform for Open Source</h1>
+    </div>
 
-Welcome to LibreCode.
-<h1>home works {{ .name }}!</h1>
-
-{{template "partials/footer"}}
+    <div class="row m-1">
+        <div class="card-group">
+            <div class="card">
+                <img src="/assets/freedom.png" class="card-img-top" alt="free from surveillance picture">
+                <div class="card-body">
+                    <h5 class="card-title">Free from tracking</h5>
+                    <p class="card-text">
+                        We respect our user's privacy by not monitoring or tracking user activities, 
+                        ensuring a safe and confidential environment for code collaboration.
+                    </p>
+                    <small class="card-text text-muted">
+                        <a href="/tos" class="btn btn-link">Read our ToS and privacy policy</a>
+                    </small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="/assets/foss.png" class="card-img-top" alt="100% FOSS">
+                <div class="card-body">
+                    <h5 class="card-title">100% FOSS</h5>
+                    <p class="card-text">
+                        Our entire codebase is publicly available, allowing users to view, copy, modify, and redistribute the 
+                        software as per free and open-source principles, fostering transparency and community collaboration.
+                    </p>
+                    <small class="card-text text-muted">
+                        <a href="https://github.com" class="btn btn-link">Check out the source code</a>
+                    </small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="/assets/community.png" class="card-img-top" alt="community driven">
+                <div class="card-body">
+                    <h5 class="card-title">Truly community driven project</h5>
+                    <p class="card-text">
+                        We involve and encourage contributions from our users so they can be part of the development roadmap, 
+                        features and improvements, fostering a sense of shared ownership and collaboration.
+                    </p>
+                    <small class="card-text text-muted">
+                        <a href="/wallet.png" class="btn btn-link">You can also fund the project with Monero</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
