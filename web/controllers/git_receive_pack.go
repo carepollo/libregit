@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// handler for git-push
+// handler for git-push, implementation of smart http
 func HttpGitReceivePack(ctx *fiber.Ctx) error {
 	ctx.Request().Header.Set("Content-Type", "application/x-git-receive-pack-result")
 	receiveRequest := packp.NewReferenceUpdateRequest()

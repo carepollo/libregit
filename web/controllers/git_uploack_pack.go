@@ -10,7 +10,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// handler for git-fetch, git-pull, git-clone
+// handler for git-fetch, git-pull, git-clone, implementation of smart http
 func HttpGitUploadPack(ctx *fiber.Ctx) error {
 	ctx.Request().Header.Set("Content-Type", "application/x-git-uploack-pack-result")
 	uploadRequest := packp.NewUploadPackRequest()

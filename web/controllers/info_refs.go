@@ -9,7 +9,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// handler for git all basic git operations, is a previous necessary step
+// handler for git all basic git operations, is a previous necessary step.
+// Part of the implementation of the smart http
 func HttpGitInfoRefs(ctx *fiber.Ctx) error {
 	service := ctx.Query("service")
 	ctx.Response().Header.Set("Content-Type", fmt.Sprintf("application/x-%v-advertisement", service))
