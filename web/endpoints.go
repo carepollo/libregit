@@ -17,14 +17,16 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Get("", controllers.RenderHome)
 	app.Get("/login", controllers.RenderLogin)
 	app.Get("/register", controllers.RenderRegister)
-	// app.Get("/explore"),
+	// app.Get("/explore", controllers.RenderExplore),
 	// app.Get("/new", controllers.RenderNewRepo)
 
 	// settings := app.Group("settings")
 	// settings.Get("/profile", controllers.RenderSettings)
 
-	repos := app.Group("/:user/:repo")
+	user := app.Group("/:user")
+	user.Get("", controllers.RenderUser)
 
+	repos := user.Group("/:repo")
 	repos.Get("", controllers.RenderRepo)
 
 	// git operations

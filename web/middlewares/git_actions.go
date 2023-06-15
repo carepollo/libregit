@@ -8,7 +8,7 @@ import (
 )
 
 // ask for credentials to write and check for write permissions over repo
-func AuthWriteRepo(ctx *fiber.Ctx) error {
+func AuthGitActions(ctx *fiber.Ctx) error {
 	auth := ctx.Get("Authorization")
 	if auth == "" {
 		return generateBasicAuthError(ctx)

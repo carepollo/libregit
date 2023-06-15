@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/carepollo/librecode/git"
 	"github.com/go-git/go-git/v5/plumbing/protocol/packp"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/gofiber/fiber/v2"
@@ -21,16 +22,15 @@ func HttpGitReceivePack(ctx *fiber.Ctx) error {
 		log.Println(err)
 		return fiber.NewError(fiber.StatusInternalServerError, "could not decode body reader")
 	}
-	ctx.Request().CloseBodyStream()
 
-	path := fmt.Sprintf("%v/%v/%v", gitpath, ctx.Params("user"), ctx.Params("repo"))
+	path := fmt.Sprintf("%v/%v/%v", git.GitPath, ctx.Params("user"), ctx.Params("repo"))
 	endpoint, err := transport.NewEndpoint(path)
 	if err != nil {
 		log.Println(err)
 		return fiber.NewError(fiber.StatusNotFound, "could not find endpoint")
 	}
 
-	session, err := gitserver.NewReceivePackSession(endpoint, nil)
+	session, err := git.Gitserver.NewReceivePackSession(endpoint, nil)
 	if err != nil {
 		log.Println(err)
 		return fiber.NewError(fiber.StatusInternalServerError, "could not start receive pack session")

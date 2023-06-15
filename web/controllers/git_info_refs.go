@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/carepollo/librecode/git"
 	"github.com/go-git/go-git/v5/plumbing/format/pktline"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/gofiber/fiber/v2"
@@ -18,7 +19,7 @@ func HttpGitInfoRefs(ctx *fiber.Ctx) error {
 	var err error
 	var session transport.Session
 
-	path := fmt.Sprintf("%v/%v/%v", gitpath, ctx.Params("user"), ctx.Params("repo"))
+	path := fmt.Sprintf("%v/%v/%v", git.GitPath, ctx.Params("user"), ctx.Params("repo"))
 	endpoint, err := transport.NewEndpoint(path)
 	if err != nil {
 		log.Println(err)
@@ -26,9 +27,9 @@ func HttpGitInfoRefs(ctx *fiber.Ctx) error {
 	}
 
 	if service == "git-upload-pack" {
-		session, err = gitserver.NewUploadPackSession(endpoint, nil)
+		session, err = git.Gitserver.NewUploadPackSession(endpoint, nil)
 	} else if service == "git-receive-pack" {
-		session, err = gitserver.NewReceivePackSession(endpoint, nil)
+		session, err = git.Gitserver.NewReceivePackSession(endpoint, nil)
 	} else {
 		log.Println(err)
 		return fiber.NewError(fiber.StatusInternalServerError, "service not recognized")

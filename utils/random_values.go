@@ -13,7 +13,7 @@ func RandomInt(max int) int {
 	return rand.Intn(max)
 }
 
-// generates a random password of 8 characters long with random uppercase and lowercase letters
+// generates a random password of 12 characters long with random uppercase and lowercase letters
 // and random numbers
 func GeneratePassword() string {
 	letters := []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"}
@@ -24,7 +24,7 @@ func GeneratePassword() string {
 	rand.NewSource(time.Now().UnixNano())
 
 	// add random characters that are either numbers or letters
-	for i := 1; i <= 8; i++ {
+	for i := 0; i < 12; i++ {
 		letterOrNumber := RandomInt(2)
 		possibleLetter := RandomInt(len(letters) - 1)
 		possibleNumber := RandomInt(len(numbers) - 1)

@@ -11,7 +11,10 @@
 html, body {
     padding: 0;
     margin: 0;
-    font-family: 'Site', 'Courier New', Courier;
+}
+
+body {
+    font-family: 'Site', var(--bs-body-font-family), Courier !important;
 }
 
 /* logo dark themed */
