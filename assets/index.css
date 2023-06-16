@@ -32,3 +32,8 @@ body {
 footer {
     margin-top: auto;
 }
+
+/* to set text as code font  */
+.code {
+    font-family:'Code', monospace;
+}

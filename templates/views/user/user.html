@@ -1,47 +1,156 @@
-<div class="container-lg">
+<div class="container py-4">
     <div class="row">
-        <div class="col-sm-12 col-md-4">
-            <div class="card">
-                <img src="/assets/community.png" class="card-img-top" alt="user profile picture">
-                <div class="card-body">
-                    <div class="card-title h5 text-bold">
-                        My Awesome Display Name
-                    </div>
-                    <div class="card-subtitle text-body-secondary text-muted">
-                        username
-                    </div>
-                    <p class="card-text">
-                        <button class="btn btn-secondary w-100">Follow</button>
-                    </p>
-                    <p class="card-text">
-                        Here goes my bio I am a very passionate developer who is into tech omg what the fuck is
-                        going on xd. the list goes on and on and on lol.
-                    </p>
-                    <p class="card-text">
-                        <span class="badge text-bg-primary">
-                            <i class="bi bi-people"></i>
-                            7 followers
-                        </span>
-                        <span class="badge text-bg-primary">
-                            <i class="bi bi-person-check-fill"></i>
-                            8 following
-                        </span>
-                    </p>
-                </div>
-              </div>
+        <div class="col-sm-12 col-md-3">
+            {{template "partials/user_card"}}
         </div>
 
-        <div class="col-sm-12 col-md-8">
-            <div class="card">
+        <div class="col-sm-12 col-md-9">
+            <ul class="nav nav-tabs mb-2">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="?tab=home">Overview</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?tab=repositories">
+                        Repositories
+                        <span class="badge text-bg-secondary">21</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="card mb-2">
                 <div class="card-header">
+                    <i class="bi bi-book"></i>
                     README.md
                 </div>
                 <div class="card-body">
-                    <p class="card-text" id="readme">
-                        {{ .sample }}
-                    </p>
+                    <pre class="card-text code" style="white-space: pre-wrap;">{{ .sample }}</pre>
                 </div>
             </div>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a class="card-title btn btn-link text-bold">go-app</a>
+                            <p class="card-text">
+                                package to build progressive web apps with Go programming language and WebAssembly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a class="card-title btn btn-link text-bold">Schulplattform</a>
+                            <p class="card-text">
+                                Live reload for Go apps
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <a class="card-title btn btn-link text-bold">lofimusic</a>
+                            <p class="card-text">
+                                Lofimusic.app is an installable Progressive web app (PWA) that lists and displays famous YouTube Lo-Fi radios.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-header">
+                    <i class="bi bi-bar-chart"></i>
+                    Stats
+                </div>
+                <div class="card-body">
+                    <div style="width: 300px; height: 200px; border: 1px solid #ccc; display: flex; flex-direction: row; align-items: flex-end;">
+                        <div style="height: 80%; width: 20%; background-color: #ff6384;"></div>
+                        <div style="height: 50%; width: 20%; background-color: #36a2eb;"></div>
+                        <div style="height: 70%; width: 20%; background-color: #ffce56;"></div>
+                        <div style="height: 60%; width: 20%; background-color: #4bc0c0;"></div>
+                    </div>
+
+                    
+                    <table class="table table-borderless">
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col" colspan="2">October</th>
+                            <th scope="col" colspan="2">November</th>
+                            <th scope="col" colspan="2">December</th>
+                            <th scope="col" colspan="2">January</th>
+                            <th scope="col" colspan="2">February</th>
+                            <th scope="col" colspan="2">March</th>
+                            <th scope="col" colspan="2">April</th>
+                            <th scope="col" colspan="2">May</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Sunday</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Monday</th>
+                            <td class="bg-success">5</td>
+                            <td class="bg-success">9</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="bg-success">2</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Tuesday</th>
+                            <td class="bg-success">3</td>
+                            <td>0</td>
+                            <td class="bg-success">7</td>
+                            <td class="bg-success">6</td>
+                            <td>0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Wednesday</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="bg-success">9</td>
+                            <td class="bg-success">8</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Thursday</th>
+                            <td class="bg-success">4</td>
+                            <td class="bg-success">11</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="bg-success">1</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Friday</th>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="bg-success">3</td>
+                            <td>0</td>
+                            <td>0</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Saturday</th>
+                            <td class="bg-success">9</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td class="bg-success">5</td>
+                            <td class="bg-success">4</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                                    
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
