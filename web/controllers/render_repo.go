@@ -4,5 +4,5 @@ import "github.com/gofiber/fiber/v2"
 
 // handler to render the homepage of the repo
 func RenderRepo(ctx *fiber.Ctx) error {
-	return ctx.Render("views/user/repo", nil, "main")
+	return ctx.Render("views/user/repo", fiber.Map{"sample": sampleMD}, "main")
 }
