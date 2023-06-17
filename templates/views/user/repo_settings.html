@@ -1,0 +1,81 @@
+<div class="container py-4">
+    <div class="row">
+        <div class="col">
+            <div>
+                <i class="bi bi-journals"></i>
+                <a href="#" class="btn btn-link">user</a>/<a href="#" class="btn btn-link">repo</a>
+                <span class="badge text-bg-secondary">Public</span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul class="nav nav-tabs mb-2">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">
+                    <i class="bi bi-code"></i>
+                    Code
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-dash-circle"></i>
+                    Issues
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-sign-merge-left"></i>
+                    Merge requests
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="bi bi-journal-text"></i>
+                    Wiki
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="settings">
+                    <i class="bi bi-gear"></i>
+                    Settings
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-12 col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                    General
+                </a>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-9">
+            <h2>General</h2>
+            <hr>
+            <form>
+                <div class="mb-3">
+                    <label for="displayName" class="form-label">Repository name</label>
+                    <input class="form-control" id="displayName">
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Publico
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Privado
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-warning">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
