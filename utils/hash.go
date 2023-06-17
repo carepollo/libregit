@@ -5,8 +5,8 @@ import (
 )
 
 // hash and salt plain string password, returns the hashed password
-func HashAndSalt(password []byte) string {
-	hash, err := bcrypt.GenerateFromPassword(password, bcrypt.DefaultCost)
+func HashAndSalt(password string) string {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		panic(err)
 	}
@@ -14,8 +14,8 @@ func HashAndSalt(password []byte) string {
 }
 
 // check if plain string password is the equivalent of a given hash
-func CheckPassword(hashed string, plain []byte) bool {
+func CheckPassword(plain string, hashed string) bool {
 	byteHash := []byte(hashed)
-	err := bcrypt.CompareHashAndPassword(byteHash, plain)
+	err := bcrypt.CompareHashAndPassword(byteHash, []byte(plain))
 	return err == nil
 }

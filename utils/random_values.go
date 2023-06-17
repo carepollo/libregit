@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-// generates a random integer number within given range
+// generates a random integer number within given range including the 0
 func RandomInt(max int) int {
 	rand.NewSource(time.Now().UnixNano())
 	return rand.Intn(max)
