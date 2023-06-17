@@ -2,18 +2,14 @@
     <div class="card m-3">
         <div class="card-body">
             <h5 class="card-title">Log In</h5>
-            <form>
+            <form action="/login" method="post">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email or Username</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <label for="userEmail" class="form-label">Email or Username</label>
+                    <input class="form-control" id="userEmail" name="useremail" required>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" required>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <br>
