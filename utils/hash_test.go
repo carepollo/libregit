@@ -4,8 +4,8 @@ import "testing"
 
 func TestHashedAndSalted(t *testing.T) {
 	plainString := "passwordxd"
-	one := HashAndSalt(plainString)
-	two := HashAndSalt(plainString)
+	one, _ := HashAndSalt(plainString)
+	two, _ := HashAndSalt(plainString)
 
 	if one == plainString || two == plainString {
 		t.Fatalf(
@@ -27,7 +27,7 @@ func TestHashedAndSalted(t *testing.T) {
 
 func TestCheckPassword(t *testing.T) {
 	plain := "password"
-	hashed := HashAndSalt(plain)
+	hashed, _ := HashAndSalt(plain)
 
 	if !CheckPassword(plain, hashed) {
 		t.Fatalf(

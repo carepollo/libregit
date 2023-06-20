@@ -1,8 +1,10 @@
+// starting point of the application where all necessary configurations are being done
 package web
 
 import (
 	"os"
 
+	"github.com/carepollo/librecode/db"
 	"github.com/carepollo/librecode/git"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
@@ -12,6 +14,7 @@ import (
 // assign to package variables some environment variables
 func CreateApp() *fiber.App {
 	git.GitPath = os.Getenv("GIT_ROOT")
+	db.Open(os.Getenv("MYSQL_CONNECTION"))
 
 	// defining html rendering engine and configuring its behaviour
 	engine := html.New("./templates", ".html")

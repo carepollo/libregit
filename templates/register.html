@@ -2,30 +2,58 @@
     <div class="card m-3">
         <div class="card-body">
             <h5 class="card-title">Register</h5>
-            <form>
+            <form action="/register" method="post">
                 <div class="mb-3">
-                    <label for="exampleInputUsername" class="form-label">Username</label>
-                    <input type="email" class="form-control" id="exampleInputUsername" aria-describedby="userHelp" required>
+                    <label for="username" class="form-label">Username</label>
+                    <input 
+                        class="form-control" 
+                        id="username" 
+                        aria-describedby="userHelp"
+                        name="username"
+                        required
+                    >
                     <span id="userHelp" class="form-text">
-                        This value is unique in the platform, use only alphanumeric characters
+                        Don't use special characters. E.g. @Tom1
                     </span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" required>
+                    <label for="email" class="form-label">Email</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        required
+                        name="email"
+                    >
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" required>
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        required 
+                        name="password"
+                        aria-describedby="passwordHelp"
+                    >
+                    <span id="passwordHelp" class="form-text">
+                        At least 8 characters, include numbers, lowercase and uppercase letters
+                    </span>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword2" class="form-label">Re-type Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword2" required>
+                    <label for="confirmPassword" class="form-label">Re-type Password</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="confirmPassword" 
+                        required 
+                        name="confirmPassword"
+                    >
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
                 <br>
                 <a class="card-link" href="/login" class="card-link">Already have an account?</a>
                 <a class="card-link" href="/recover" class="card-link">Forgot your password?</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>

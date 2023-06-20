@@ -17,8 +17,9 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Get("", controllers.RenderHome)
 	app.Get("/login", controllers.RenderLogin)
 	app.Post("/login", controllers.HandleLogin)
-
 	app.Get("/register", controllers.RenderRegister)
+	app.Post("/register", controllers.HandleRegister)
+	// app.Get("/verify", controllers.HandleVerify)
 	// app.Get("/explore", controllers.RenderExplore)
 	app.Get("/new", controllers.RenderNewRepo)
 
