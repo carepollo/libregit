@@ -1,4 +1,5 @@
 librecode
-.env
+# .env
+env.json
 node_modules
-# assets/index.css
+

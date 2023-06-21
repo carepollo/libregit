@@ -6,4 +6,5 @@ type Repo struct {
 	Description string // description of repo (non git feature)
 	IsPublic    bool   // to handle read/write permissions
 	Owner       int    // owner of the repo, who created it, contains its ID
+	Location    string // full site location URL within the system "username/reponame"
 }

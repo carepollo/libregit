@@ -1,8 +1,6 @@
 package utils
 
-import (
-	"golang.org/x/crypto/bcrypt"
-)
+import "golang.org/x/crypto/bcrypt"
 
 // hash and salt plain string password, returns the hashed password
 func HashAndSalt(password string) (string, error) {
