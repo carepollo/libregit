@@ -3,9 +3,9 @@ package controllers
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/carepollo/librecode/db"
-	"github.com/carepollo/librecode/git"
 	"github.com/carepollo/librecode/utils"
 	"github.com/gofiber/fiber/v2"
 )
@@ -40,22 +40,18 @@ func HandleRegister(ctx *fiber.Ctx) error {
 		return ctx.SendString("email " + email + " already exists ")
 	}
 
-	// creating user's folder, creating personal repo for README
-	userpath := fmt.Sprintf("%v/%v/%v.git", git.GitPath, username, username)
-	_, err := git.CreateRepo(userpath)
-	if err != nil {
-		log.Println("could not create repo: " + err.Error())
-		return ctx.Redirect("/register", fiber.StatusInternalServerError)
-	}
-	err = git.AddReadme(username + "/" + username + ".git") //FIXME
-	if err != nil {
-		log.Println("was not possible to add default README: " + err.Error())
-	}
+	// TODO: creating user's folder, creating personal repo for README
 
 	// generate a random profile picture for user and store it in the user's directory
-	picture, err = utils.GetRandomPfp(username, fmt.Sprintf("%v/%v", git.GitPath, username))
+	filepath := fmt.Sprintf("%v/%v", utils.GlobalEnv.GitRoot, username)
+
+	if err := os.MkdirAll(filepath, os.ModePerm); err != nil {
+		log.Println("didn't add random pfp, fallback to default: ", err.Error())
+	}
+
+	picture, err := utils.GetRandomPfp(username, username)
 	if err != nil {
-		log.Println("didn't add random pfp, fallback to default", err.Error())
+		log.Println("didn't add random pfp, fallback to default: ", err.Error())
 		picture = "/assets/defaultpfp.webp"
 	}
 

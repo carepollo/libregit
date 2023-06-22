@@ -69,7 +69,8 @@ func GetRandomPfp(seed, path string) (string, error) {
 	}
 	defer response.Body.Close()
 
-	filepath := fmt.Sprintf("%v/%v", path, "pfp.svg")
+	filename := "pfp.svg"
+	filepath := fmt.Sprintf("%v/%v/%v", GlobalEnv.GitRoot, path, filename)
 	file, err := os.Create(filepath)
 	if err != nil {
 		return "", err
@@ -81,6 +82,6 @@ func GetRandomPfp(seed, path string) (string, error) {
 		return "", err
 	}
 
-	result := fmt.Sprintf("%v/%v/%v", GlobalEnv.URLs.Project, "media", filepath)
+	result := fmt.Sprintf("%v/%v/%v/%v", GlobalEnv.URLs.Project, "media", path, filename)
 	return result, nil
 }

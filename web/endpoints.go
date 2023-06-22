@@ -13,6 +13,9 @@ func RegisterEndpoints(app *fiber.App) {
 	// serve files
 	app.Static("/assets", "./assets")
 
+	// files := app.Group("/media")
+	// files.Get("/:user")
+
 	// web views
 	app.Get("", controllers.RenderHome)
 	app.Get("/login", controllers.RenderLogin)
