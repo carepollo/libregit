@@ -40,10 +40,10 @@ func HandleRegister(ctx *fiber.Ctx) error {
 		return ctx.SendString("email " + email + " already exists ")
 	}
 
+	filepath := fmt.Sprintf("%v/%v", utils.GlobalEnv.GitRoot, username)
 	// TODO: creating user's folder, creating personal repo for README
 
 	// generate a random profile picture for user and store it in the user's directory
-	filepath := fmt.Sprintf("%v/%v", utils.GlobalEnv.GitRoot, username)
 
 	if err := os.MkdirAll(filepath, os.ModePerm); err != nil {
 		log.Println("didn't add random pfp, fallback to default: ", err.Error())
