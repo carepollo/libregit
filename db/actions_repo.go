@@ -4,7 +4,7 @@ import "github.com/carepollo/librecode/models"
 
 func GetReposByOwner(ownerId string) ([]models.Repo, error) {
 	repos := []models.Repo{}
-	rows, err := client.Query("SELECT * FROM repos WHERE owner = ?", ownerId)
+	rows, err := db.Query("SELECT * FROM repos WHERE owner = ?", ownerId)
 	if err != nil {
 		return nil, err
 	}

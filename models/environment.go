@@ -9,7 +9,7 @@ type storageEnv struct {
 type Environment struct {
 	Production  bool   `mapstructure:"production"`
 	GitRoot     string `mapstructure:"git_root"`
-	ProjectRoot string `mapstructure:"project_root"`
+	ProjectRoot string `mapstructure:"project_root"` // git server instance of library
 	Storage     struct {
 		Db    storageEnv `mapstructure:"db"`
 		Cache storageEnv `mapstructure:"cache"`

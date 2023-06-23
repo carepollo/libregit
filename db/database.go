@@ -4,29 +4,30 @@ import (
 	"database/sql"
 	"log"
 
+	"github.com/carepollo/librecode/utils"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var (
-	client *sql.DB
-)
+var db *sql.DB
 
 // start connection with mysql database (main)
-func Open(connection string) {
-	db, err := sql.Open("mysql", connection)
+func openDatabase() {
+	client, err := sql.Open("mysql", utils.GlobalEnv.Storage.Db.Connection)
 	if err != nil {
 		panic("could not connect to database")
 	}
 
-	if err := db.Ping(); err != nil {
+	if err := client.Ping(); err != nil {
 		log.Fatalf("failed to ping: %v", err)
 	}
 
-	client = db
-	log.Println("Successfully connected to MYSQL instance")
+	db = client
+	log.Println("Successfully connected to MySQL instance")
 }
 
 // MUST be executed before program exits and after each opening of database as a DEFER
-func Close() {
-	client.Close()
+func closeDatabase() {
+	if err := db.Close(); err != nil {
+		log.Println(err)
+	}
 }

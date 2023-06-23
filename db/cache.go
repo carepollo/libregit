@@ -2,52 +2,56 @@ package db
 
 import (
 	"context"
-	"fmt"
-	"os"
+	"encoding/json"
+	"log"
 	"time"
 
+	"github.com/carepollo/librecode/utils"
 	"github.com/go-redis/redis/v8"
 )
 
-// a custom wrapper for common actions
-type Cache struct {
-	client  *redis.Client   // the redis official client
-	context context.Context // mongodb has its own context, redis also its own required context
-}
+var (
+	cache    *redis.Client
+	redisCtx context.Context = context.TODO()
+)
 
-func NewCache() *Cache {
-	cache := &Cache{
-		client: redis.NewClient(&redis.Options{
-			Addr:     os.Getenv("REDIS_CONNECTION"),
-			Password: os.Getenv("REDIS_PASSWORD"),
-			DB:       0,
-			Username: "default",
-		}),
-		context: context.TODO(),
+// create instance of redis and ping it
+func openCache() {
+	cache = redis.NewClient(&redis.Options{
+		Addr:     utils.GlobalEnv.Storage.Cache.Connection,
+		Password: utils.GlobalEnv.Storage.Cache.Password,
+	})
+
+	_, err := cache.Ping(redisCtx).Result()
+	if err != nil {
+		panic("could not connect to cache: " + err.Error())
 	}
-	fmt.Println("Connected to cache successfully")
-	return cache
+	log.Println("Successfully connected to Redis instance")
 }
 
-// closes the client and releases resources
-func (cache *Cache) Disconnect() {
-	cache.client.Close()
+// close connection to redis instance, make sure to run only at the end of the program
+func closeCache() {
+	if err := cache.Close(); err != nil {
+		log.Println(err)
+	}
 }
 
+// cache generic function as a shorthand to SET command.
 // saves the value on the redis database, returns error if something went wrong.
-// all data stored will be remembered for 60 minutes
-func (cache *Cache) Set(key string, value interface{}) error {
-	err := cache.client.Set(cache.context, key, value, 60*time.Minute).Err()
+// stored data will be remembered by the given time.
+// value param must be encodable in json
+func remember(key string, value interface{}, expireAt time.Duration) error {
+	data, err := json.Marshal(value)
 	if err != nil {
 		return err
 	}
-
-	return nil
+	return cache.Set(redisCtx, key, data, expireAt).Err()
 }
 
-// retrieves value required by the key, returns error when key doesn't exists or some error happened
-func (cache *Cache) Get(key string) (interface{}, error) {
-	val, err := cache.client.Get(cache.context, key).Result()
+// cache generic function as a shorthand to GET command
+// retrieves value by the key and returns error when key doesn't exists
+func retrieve(key string) ([]byte, error) {
+	val, err := cache.Get(redisCtx, key).Bytes()
 	if err == redis.Nil || err != nil {
 		return nil, err
 	}
@@ -55,7 +59,8 @@ func (cache *Cache) Get(key string) (interface{}, error) {
 	return val, nil
 }
 
-// deletes a single element in cache
-func (cache *Cache) Delete(key string) error {
-	return cache.client.Del(cache.context, key).Err()
+// cache type unsafe function as a shorthand to DEL command, must cast type on concrete implementation.
+// deletes a single element from cache
+func forget(key string) error {
+	return cache.Del(redisCtx, key).Err()
 }

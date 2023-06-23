@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/carepollo/librecode/git"
+	"github.com/carepollo/librecode/utils"
 	"github.com/go-git/go-git/v5/plumbing/format/pktline"
 	"github.com/go-git/go-git/v5/plumbing/transport"
 	"github.com/gofiber/fiber/v2"
@@ -19,7 +20,7 @@ func HttpGitInfoRefs(ctx *fiber.Ctx) error {
 	var err error
 	var session transport.Session
 
-	path := fmt.Sprintf("%v/%v/%v", git.GitPath, ctx.Params("user"), ctx.Params("repo"))
+	path := fmt.Sprintf("%v/%v/%v", utils.GlobalEnv.GitRoot, ctx.Params("user"), ctx.Params("repo"))
 	endpoint, err := transport.NewEndpoint(path)
 	if err != nil {
 		log.Println(err)
