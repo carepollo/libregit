@@ -1,5 +1,7 @@
-librecode
-# .env
+# application
 env.json
-node_modules
+librecode
 
+# development
+/tmp
+.air.toml

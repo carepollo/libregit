@@ -4,7 +4,15 @@
             {{template "partials/logo"}}
             LibreCode
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -15,32 +23,40 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="/help">Help</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="/marketplace">Marketplace</a>
-                </li> -->
-            </ul>
-            <div>
-                <!-- <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ if .IsLogged }}
+                <li class="nat-item dropdown">
+                    <a 
+                        class="nav-link btn-secondary dropdown-toggle" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                    >
                         <i class="bi bi-plus"></i>
-                    </button>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/new">New Repository</a></li>
                         <li><a class="dropdown-item" href="/settings/account"></a></li>
                         <li><a class="dropdown-item" href="/logout">Logout</a></li>
                     </ul>
-                </div> -->
-
+                </li>
+                {{end}}
+            </ul>
+            <div>
+                {{if .IsLogged}}
+                <a href="/{{.User.Name}}">
+                    <img class="pfp" src="{{.User.Picture}}" alt="profile picture">
+                </a>
+                {{else}}
                 <div class="btn-group" role="group" aria-label="Access">
-                <a class="btn btn-outline-light" href="/login">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    Login
-                </a>
-                <a class="btn btn-light" href="/register">
-                    <i class="bi bi-pencil-square"></i>
-                    Register
-                </a>
+                    <a class="btn btn-outline-light" href="/login">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        Login
+                    </a>
+                    <a class="btn btn-light" href="/register">
+                        <i class="bi bi-pencil-square"></i>
+                        Register
+                    </a>
                 </div>
+                {{end}}
             </div>
         </div>
     </div>

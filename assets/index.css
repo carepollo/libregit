@@ -22,6 +22,11 @@ body {
     filter: invert(100%);
 }
 
+.pfp {
+    height: 24px;
+    width: 24px;
+}
+
 /* to allow footer sticked to the bottom, header to the top and content not overlaying them */
 #MainContainer {
     display: flex;
