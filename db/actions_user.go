@@ -16,6 +16,7 @@ var (
 	sessionPrefix = "session_"
 )
 
+// helper to return empty value of user if error and assign properties from result to go struct
 func extractSingleUser(result *sql.Row) (models.User, error) {
 	user := models.User{}
 	err := result.Scan(
@@ -126,4 +127,12 @@ func GetUserSession(deviceId string) (models.User, error) {
 
 func DeleteUserSession(deviceId string) error {
 	return forget(sessionPrefix + deviceId)
+}
+
+// use to retrieve data of user
+func GetUserByName(username string) (models.User, error) {
+	query := "SELECT * FROM users WHERE name = ?"
+	result := db.QueryRow(query, username)
+	user, err := extractSingleUser(result)
+	return user, err
 }

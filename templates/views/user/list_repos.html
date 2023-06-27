@@ -1,21 +1,11 @@
 <div class="container py-4">
     <div class="row">
         <div class="col-sm-12 col-md-3">
-            {{template "partials/user_card"}}
+            {{template "partials/user_card" .VisitedUser}}
         </div>
 
         <div class="col-sm-12 col-md-9">
-            <ul class="nav nav-tabs mb-2">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="?tab=home">Overview</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="?tab=repositories">
-                        Repositories
-                        <span class="badge text-bg-secondary">21</span>
-                    </a>
-                </li>
-            </ul>
+            {{template "partials/user_tabs" .}}
 
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
@@ -38,5 +28,3 @@
         </div>
     </div>
 </div>
-
-

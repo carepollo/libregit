@@ -1,25 +1,11 @@
 <div class="container py-4">
     <div class="row">
         <div class="col-sm-12 col-md-3">
-            {{template "partials/user_card"}}
+            {{template "partials/user_card" .VisitedUser}}
         </div>
 
         <div class="col-sm-12 col-md-9">
-            <ul class="nav nav-tabs mb-2">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="?tab=home">
-                        <i class="bi bi-book"></i>
-                        Overview
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="?tab=repositories">
-                        <i class="bi bi-journals"></i>
-                        Repositories
-                        <span class="badge text-bg-secondary">21</span>
-                    </a>
-                </li>
-            </ul>
+            {{template "partials/user_tabs" .}}
 
             <div class="card mb-2">
                 <div class="card-header">
@@ -27,40 +13,9 @@
                     README.md
                 </div>
                 <div class="card-body">
-                    <pre class="card-text code" style="white-space: pre-wrap;">{{ .sample }}</pre>
-                </div>
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <a class="card-title btn btn-link text-bold">go-app</a>
-                            <p class="card-text">
-                                package to build progressive web apps with Go programming language and WebAssembly.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <a class="card-title btn btn-link text-bold">Schulplattform</a>
-                            <p class="card-text">
-                                Live reload for Go apps
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <a class="card-title btn btn-link text-bold">lofimusic</a>
-                            <p class="card-text">
-                                Lofimusic.app is an installable Progressive web app (PWA) that lists and displays famous YouTube Lo-Fi radios.
-                            </p>
-                        </div>
-                    </div>
+                    <pre class="card-text code" style="white-space: pre-wrap;">
+                        <!-- TODO: here goes the README text -->
+                    </pre>
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import (
 // add the routes to the application
 func RegisterEndpoints(app *fiber.App) {
 	app.Use(middlewares.Logger)
+	app.Use(middlewares.AppendUserData)
 
 	// serve files
 	app.Static("/assets", "./assets")
@@ -44,4 +45,7 @@ func RegisterEndpoints(app *fiber.App) {
 	repos.Get("/info/refs", controllers.HttpGitInfoRefs)
 	repos.Post("/git-upload-pack", controllers.HttpGitUploadPack)
 	repos.Post("/git-receive-pack", controllers.HttpGitReceivePack)
+
+	// 404, when none of the previous routes matches the request
+	app.Get("/404", controllers.RenderNotFound)
 }
