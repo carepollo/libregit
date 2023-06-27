@@ -7,4 +7,5 @@ type Repo struct {
 	IsPublic    bool   // to handle read/write permissions
 	Owner       int    // owner of the repo, who created it, contains its ID
 	Location    string // full site location URL within the system "username/reponame"
+	// LastUpdate time.Time // last date the repo a change was detected in the repo.
 }

@@ -13,10 +13,10 @@ func RegisterEndpoints(app *fiber.App) {
 	// serve files
 	app.Static("/assets", "./assets")
 
-	// files := app.Group("/media")
-	// files.Get("/:user")
+	files := app.Group("/media/:user")
+	files.Get("/picture/:filename", controllers.GetUserPfp)
 
-	// web views
+	// web views and ui-triggered actions
 	app.Get("", controllers.RenderHome)
 
 	app.Get("/login", controllers.RenderLogin)
