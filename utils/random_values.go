@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 	"unicode"
@@ -70,7 +71,7 @@ func GetRandomPfp(seed, path string) (string, error) {
 	defer response.Body.Close()
 
 	filename := "pfp.svg"
-	filepath := fmt.Sprintf("%v/%v/%v", GlobalEnv.GitRoot, path, filename)
+	filepath := filepath.Join(GlobalEnv.GitRoot, path, filename)
 	file, err := os.Create(filepath)
 	if err != nil {
 		return "", err
@@ -82,6 +83,6 @@ func GetRandomPfp(seed, path string) (string, error) {
 		return "", err
 	}
 
-	result := fmt.Sprintf("%v/%v/%v/%v", GlobalEnv.URLs.Project, "media", path, filename)
+	result := fmt.Sprintf("%v/%v/%v/%v/%v", GlobalEnv.URLs.Project, "media", path, "picture", filename)
 	return result, nil
 }

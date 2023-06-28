@@ -28,11 +28,13 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Post("/register", controllers.HandleRegister)
 
 	app.Get("/verify", controllers.HandleVerify)
-	// app.Get("/explore", controllers.RenderExplore)
 	app.Get("/new", controllers.RenderNewRepo)
 
 	settings := app.Group("settings")
-	settings.Use(middlewares.IsLogged).Get("/account", controllers.RenderAccountSettings)
+	settings.Use(middlewares.IsLogged)
+	settings.Get("/account", controllers.RenderAccountSettings)
+	settings.Post("/account", controllers.HandleUserUpdate)
+	settings.Post("/account/picture", controllers.SetUserPfp)
 
 	user := app.Group("/:user")
 	user.Get("", controllers.RenderUser)

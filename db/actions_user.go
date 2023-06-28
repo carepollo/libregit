@@ -136,3 +136,19 @@ func GetUserByName(username string) (models.User, error) {
 	user, err := extractSingleUser(result)
 	return user, err
 }
+
+// replace picture, bio, displayname, amountrepositores, and password with given values
+func UpdateUser(data models.User) error {
+	query := "UPDATE users SET picture = ?, bio = ?, displayName = ?, amountRepositories = ?, password = ? WHERE id = ?"
+	_, err := db.Exec(
+		query,
+		data.Picture,
+		data.Bio,
+		data.DisplayName,
+		data.AmountRepositories,
+		data.Password,
+		data.ID,
+	)
+
+	return err
+}
