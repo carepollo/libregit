@@ -39,7 +39,7 @@ func SetUserPfp(ctx *fiber.Ctx) error {
 	}
 
 	// updating record of user in DB
-	user.Picture = fmt.Sprintf("%v/%v/%v/%v", utils.GlobalEnv.URLs.Project, "media", user.Name, file.Filename)
+	user.Picture = fmt.Sprintf("%v/%v/%v/%v/%v", utils.GlobalEnv.URLs.Project, "media", user.Name, "picture", file.Filename)
 	err = db.UpdateUser(user)
 	if err != nil {
 		log.Println("couldn't get local data", err.Error())
