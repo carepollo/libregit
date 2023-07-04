@@ -16,19 +16,22 @@ func HandleLogin(ctx *fiber.Ctx) error {
 
 	user, err := db.GetUserByNameOrEmail(usermail)
 	if err != nil {
-		return ctx.Redirect("/login", fiber.StatusNotFound)
+		log.Println("not found user by email or email:", err)
+		return ctx.Redirect("/login")
 	}
 
 	if !utils.CheckPassword(password, user.Password) {
-		return ctx.Redirect("/login", fiber.StatusNotFound)
+		log.Println("the password doesn't match")
+		return ctx.Redirect("/login")
 	}
 
 	if user.Status != models.ACTIVE {
+		log.Println("the user given is not verified")
 		return ctx.Redirect("/login", fiber.StatusNotAcceptable)
 	}
 
 	if err := db.SetUserSession(ctx.IP(), user); err != nil {
-		log.Println(err)
+		log.Println("couldn't store user session", err)
 		return ctx.Redirect("/login", fiber.StatusInternalServerError)
 	}
 

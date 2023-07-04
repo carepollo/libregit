@@ -1,6 +1,12 @@
 package db
 
-import "github.com/carepollo/librecode/models"
+import (
+	"fmt"
+
+	"github.com/carepollo/librecode/models"
+	"github.com/carepollo/librecode/utils"
+	"github.com/google/uuid"
+)
 
 func GetReposByOwner(ownerId string) ([]models.Repo, error) {
 	repos := []models.Repo{}
@@ -26,4 +32,12 @@ func GetReposByOwner(ownerId string) ([]models.Repo, error) {
 	}
 
 	return repos, nil
+}
+
+func CreateRepo(userId, name string, visibility bool) error {
+	id := uuid.New().String()
+	location := fmt.Sprintf("%v/%v/%v", utils.GlobalEnv.URLs.Project, userId, name)
+	query := "INSERT INTO repos (name, owner, isPublic, id, location) VALUES (?, ?, ?, ?, ?)"
+	_, err := db.Exec(query, name, userId, visibility, id, location)
+	return err
 }

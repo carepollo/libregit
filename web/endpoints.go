@@ -28,7 +28,8 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Post("/register", controllers.HandleRegister)
 
 	app.Get("/verify", controllers.HandleVerify)
-	app.Get("/new", controllers.RenderNewRepo)
+	app.Use(middlewares.IsLogged).Get("/new", controllers.RenderNewRepo)
+	app.Use(middlewares.IsLogged).Post("/new", controllers.HandleNewRepo)
 
 	settings := app.Group("settings")
 	settings.Use(middlewares.IsLogged)
