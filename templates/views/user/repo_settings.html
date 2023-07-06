@@ -1,52 +1,17 @@
 <div class="container py-4">
     <div class="row">
         <div class="col">
-            <div>
-                <i class="bi bi-journals"></i>
-                <a href="#" class="btn btn-link">user</a>/<a href="#" class="btn btn-link">repo</a>
-                <span class="badge text-bg-secondary">Public</span>
-            </div>
+            {{template "partials/repo_path" .}}
         </div>
     </div>
     <div class="row">
-        <ul class="nav nav-tabs mb-2">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">
-                    <i class="bi bi-code"></i>
-                    Code
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-dash-circle"></i>
-                    Issues
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-sign-merge-left"></i>
-                    Merge requests
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-journal-text"></i>
-                    Wiki
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="settings">
-                    <i class="bi bi-gear"></i>
-                    Settings
-                </a>
-            </li>
-        </ul>
+        {{template "partials/repo_tabs" .}}
     </div>
     <div class="row">
 
         <div class="col-sm-12 col-md-3">
             <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                <a class="list-group-item list-group-item-action active" aria-current="true">
                     General
                 </a>
             </div>
@@ -55,26 +20,57 @@
         <div class="col-sm-12 col-md-9">
             <h2>General</h2>
             <hr>
-            <form>
+            <form action="/{{.User.Name}}/{{.VisitedRepo.Name}}/settings" method="post">
                 <div class="mb-3">
                     <label for="displayName" class="form-label">Repository name</label>
-                    <input class="form-control" id="displayName">
+                    <input 
+                        class="form-control" 
+                        id="displayName" 
+                        name="repo"
+                        value="{{.VisitedRepo.Name}}"
+                    >
+                </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="visibility" 
+                            id="visibility1"
+                            value="public"
+                            {{if eq .VisitedRepo.IsPrivate false}} checked {{end}}
+                        >
+                        <label class="form-check-label" for="visibility1">
+                            Publico
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="radio" 
+                            name="visibility" 
+                            id="visibility2" 
+                            value="private"
+                            {{if eq .VisitedRepo.IsPrivate true}} checked {{end}}
+                        >
+                        <label class="form-check-label" for="visibility2">
+                            Privado
+                        </label>
+                    </div>    
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea 
+                        id="description" 
+                        class="form-control" 
+                        name="description"
+                    >{{.VisitedRepo.Description}}</textarea>
                 </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                        Publico
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
-                        Privado
-                    </label>
-                </div>
 
-                <button type="submit" class="btn btn-warning">Update</button>
+                <button type="submit" class="btn btn-warning">
+                    Update
+                </button>
             </form>
         </div>
     </div>

@@ -1,8 +1,9 @@
 package middlewares
 
 import (
+	"log"
+
 	"github.com/carepollo/librecode/db"
-	"github.com/carepollo/librecode/models"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -11,15 +12,7 @@ import (
 func IsLogged(ctx *fiber.Ctx) error {
 	_, err := db.GetUserSession(ctx.IP())
 	if err != nil {
-		return ctx.Redirect("/")
-	}
-
-	context, ok := ctx.Locals("globalData").(models.ContextData)
-	if !ok {
-		return ctx.Redirect("/")
-	}
-
-	if !context.IsLogged {
+		log.Println("user is not logged:", err)
 		return ctx.Redirect("/")
 	}
 

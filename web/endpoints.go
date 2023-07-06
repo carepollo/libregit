@@ -11,6 +11,9 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Use(middlewares.Logger)
 	app.Use(middlewares.AppendUserData)
 
+	// 404, when none of the previous routes matches the request
+	app.Get("/404", controllers.RenderNotFound)
+
 	// serve files
 	app.Static("/assets", "./assets")
 
@@ -28,11 +31,10 @@ func RegisterEndpoints(app *fiber.App) {
 	app.Post("/register", controllers.HandleRegister)
 
 	app.Get("/verify", controllers.HandleVerify)
-	app.Use(middlewares.IsLogged).Get("/new", controllers.RenderNewRepo)
-	app.Use(middlewares.IsLogged).Post("/new", controllers.HandleNewRepo)
+	app.Get("/new", middlewares.IsLogged, controllers.RenderNewRepo)
+	app.Post("/new", middlewares.IsLogged, controllers.HandleNewRepo)
 
-	settings := app.Group("settings")
-	settings.Use(middlewares.IsLogged)
+	settings := app.Group("settings", middlewares.IsLogged)
 	settings.Get("/account", controllers.RenderAccountSettings)
 	settings.Post("/account", controllers.HandleUserUpdate)
 	settings.Post("/account/picture", controllers.SetUserPfp)
@@ -42,13 +44,11 @@ func RegisterEndpoints(app *fiber.App) {
 
 	repos := user.Group("/:repo")
 	repos.Get("", controllers.RenderRepoHome)
-	repos.Get("/settings", controllers.RenderRepoSettings)
+	repos.Get("/settings", middlewares.IsLogged, controllers.RenderRepoSettings)
+	repos.Post("/settings", middlewares.IsLogged, controllers.HandleUpdateRepoSettings)
 
 	// git operations
 	repos.Get("/info/refs", controllers.HttpGitInfoRefs)
 	repos.Post("/git-upload-pack", controllers.HttpGitUploadPack)
 	repos.Post("/git-receive-pack", controllers.HttpGitReceivePack)
-
-	// 404, when none of the previous routes matches the request
-	app.Get("/404", controllers.RenderNotFound)
 }

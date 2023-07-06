@@ -14,28 +14,35 @@ import (
 
 func HandleNewRepo(ctx *fiber.Ctx) error {
 	reponame := ctx.FormValue("reponame")
-	visibility := ctx.FormValue("visibility") == "public"
+	visibility := ctx.FormValue("visibility") == "private"
 	user, err := db.GetUserSession(ctx.IP())
 	if err != nil {
 		log.Println("not found user session data")
-		return fiber.NewError(fiber.StatusUnauthorized)
+		return ctx.Redirect("/new")
 	}
 
 	path := filepath.Join(utils.GlobalEnv.GitRoot, user.Name, reponame+".git")
 	_, err = git.CreateRepo(path)
 	if err != nil {
 		log.Println("failed to create repository:", err)
-		return fiber.NewError(fiber.StatusInternalServerError)
+		return ctx.Redirect("/new")
 	}
 
-	err = db.CreateRepo(user.ID, reponame, visibility)
+	err = db.CreateRepo(user.Name, reponame, visibility)
 	if err != nil {
 		log.Println("could not register repo:", err)
 		err = os.Remove(path)
 		if err != nil {
 			log.Println("failed on cleaning failed repo:", err)
 		}
-		return fiber.NewError(fiber.StatusInternalServerError)
+		return ctx.Redirect("/new")
+	}
+
+	user.AmountRepositories++
+	err = db.UpdateUser(user)
+	if err != nil {
+		log.Println("failed to update user data", err)
+		return ctx.Redirect("/new")
 	}
 
 	newRepoPath := fmt.Sprintf("/%v/%v", user.Name, reponame)

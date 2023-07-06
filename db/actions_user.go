@@ -1,7 +1,6 @@
 package db
 
 import (
-	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -17,7 +16,7 @@ var (
 )
 
 // helper to return empty value of user if error and assign properties from result to go struct
-func extractSingleUser(result *sql.Row) (models.User, error) {
+func extractSingleUser(result sqlResult) (models.User, error) {
 	user := models.User{}
 	err := result.Scan(
 		&user.ID,

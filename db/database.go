@@ -8,6 +8,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
+// should satisfy *sql.Row and *sql.Rows structs
+type sqlResult interface {
+	Scan(dest ...interface{}) error
+}
+
 var db *sql.DB
 
 // start connection with mysql database (main)

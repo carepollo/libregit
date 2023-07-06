@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"log"
+
 	"github.com/carepollo/librecode/db"
 	"github.com/carepollo/librecode/models"
 	"github.com/gofiber/fiber/v2"
@@ -9,19 +11,30 @@ import (
 // handler to render homepage of a user
 func RenderUser(ctx *fiber.Ctx) error {
 	var homeView string
+	visitedUsername := ctx.Params("user")
+
+	contextData, ok := ctx.Locals("globalData").(models.ContextData)
+	if !ok {
+		log.Println("failed retrieving context data")
+		return ctx.SendStatus(fiber.StatusInternalServerError)
+	}
+
 	tab := ctx.Query("tab")
 	if tab == "repositories" {
-		homeView = "views/user/list_repos"
+		homeView = "views/user/user_repos"
+		includePrivate := visitedUsername == contextData.User.Name
+		userRepos, err := db.GetReposByOwner(visitedUsername, includePrivate)
+		if err != nil {
+			log.Println("failed at getting user repos", err)
+			userRepos = []models.Repo{}
+		}
+
+		contextData.VisitedUserRepos = userRepos
 	} else {
 		homeView = "views/user/user"
 	}
 
-	contextData, ok := ctx.Locals("globalData").(models.ContextData)
-	if !ok {
-		return ctx.SendStatus(fiber.StatusInternalServerError)
-	}
-
-	visited, err := db.GetUserByName(ctx.Params("user"))
+	visited, err := db.GetUserByName(visitedUsername)
 	if err != nil {
 		return ctx.Redirect("/404")
 	}

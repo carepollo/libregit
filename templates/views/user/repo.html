@@ -1,28 +1,11 @@
 <div class="container py-4">
     <div class="row">
         <div class="col">
-            <div>
-                <i class="bi bi-journals"></i>
-                <a href="#" class="btn btn-link">user</a>/<a href="#" class="btn btn-link">repo</a>
-                <span class="badge text-bg-secondary">Public</span>
-            </div>
+            {{template "partials/repo_path" .}}
         </div>
     </div>
     <div class="row">
-        <ul class="nav nav-tabs mb-2">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                    <i class="bi bi-code"></i>
-                    Code
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="settings">
-                    <i class="bi bi-gear"></i>
-                    Settings
-                </a>
-            </li>
-        </ul>
+        {{template "partials/repo_tabs" .}}
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-9">
@@ -64,7 +47,7 @@
                     README.md
                 </div>
                 <div class="card-body">
-                    <pre class="card-text code" style="white-space: pre-wrap;">{{ .sample }}</pre>
+                    <pre class="card-text code" style="white-space: pre-wrap;">here should go a readme text</pre>
                 </div>
             </div>
 
@@ -73,34 +56,12 @@
         <div class="col-sm-12 col-md-3">
             <b>About</b>
             <p>
-                package to build progressive web apps with Go programming language and WebAssembly.
+                {{if eq .VisitedRepo.Description ""}}
+                    <i class="text-muted">No description provided</i>
+                {{else}}
+                    {{.VisitedRepo.Description}}
+                {{end}}
             </p>
-            <div>
-                <span class="badge rounded-pill text-bg-primary">project</span>
-                <span class="badge rounded-pill text-bg-primary">foss</span>
-                <span class="badge rounded-pill text-bg-primary">learning-project</span>
-            </div>
-            <div>
-                <i class="bi bi-book"></i>
-                <a href="#readme">Readme</a>
-            </div>
-            <div>
-                <i class="bi bi-file-earmark-post-fill"></i>
-                <a href="#">License</a>
-            </div>
-            <hr>
-            <b>Languages</b>
-            <div 
-                class="progress" 
-                role="progressbar" 
-                aria-label="Basic example" 
-                aria-valuenow="25" 
-                aria-valuemin="0" 
-                aria-valuemax="100"
-            >
-                <div class="progress-bar" style="width: 25%"></div>
-            </div>
-              
         </div>
     </div>
 </div>
