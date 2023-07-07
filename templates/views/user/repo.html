@@ -41,16 +41,9 @@
                 </div>
             </div>
 
-            <div class="card mb-2" id="readme">
-                <div class="card-header">
-                    <i class="bi bi-book"></i>
-                    README.md
-                </div>
-                <div class="card-body">
-                    <pre class="card-text code" style="white-space: pre-wrap;">here should go a readme text</pre>
-                </div>
-            </div>
-
+            {{if .Readme}}
+                {{template "partials/card_readme" .}}
+            {{end}}
         </div>
 
         <div class="col-sm-12 col-md-3">

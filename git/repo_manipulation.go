@@ -1,6 +1,7 @@
 package git
 
 import (
+	"io"
 	"os"
 	"path/filepath"
 
@@ -28,3 +29,51 @@ func RenameRepo(oldName, newName, owner string) error {
 	}
 	return nil
 }
+
+// get the content of the root README.md of given repo
+func GetReadme(ownerName, repoName string) (string, error) {
+	path := filepath.Join(utils.GlobalEnv.GitRoot, ownerName, repoName+".git")
+	repo, err := git.PlainOpen(path)
+	if err != nil {
+		return "", err
+	}
+
+	ref, err := repo.Head()
+	if err != nil {
+		return "", err
+	}
+
+	commit, err := repo.CommitObject(ref.Hash())
+	if err != nil {
+		return "", err
+	}
+
+	tree, err := commit.Tree()
+	if err != nil {
+		return "", err
+	}
+
+	fileEntry, err := tree.FindEntry("README.md")
+	if err != nil {
+		return "", err
+	}
+
+	file, err := repo.BlobObject(fileEntry.Hash)
+	if err != nil {
+		return "", err
+	}
+
+	reader, err := file.Reader()
+	if err != nil {
+		return "", err
+	}
+
+	content, err := io.ReadAll(reader)
+	if err != nil {
+		return "", err
+	}
+
+	return string(content), nil
+}
+
+// func AddReadme(ownerName, repoName string) error

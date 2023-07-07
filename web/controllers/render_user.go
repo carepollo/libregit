@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/carepollo/librecode/db"
+	"github.com/carepollo/librecode/git"
 	"github.com/carepollo/librecode/models"
 	"github.com/gofiber/fiber/v2"
 )
@@ -21,6 +22,7 @@ func RenderUser(ctx *fiber.Ctx) error {
 
 	tab := ctx.Query("tab")
 	if tab == "repositories" {
+		// if is tab of repos, get repos data
 		homeView = "views/user/user_repos"
 		includePrivate := visitedUsername == contextData.User.Name
 		userRepos, err := db.GetReposByOwner(visitedUsername, includePrivate)
@@ -31,7 +33,14 @@ func RenderUser(ctx *fiber.Ctx) error {
 
 		contextData.VisitedUserRepos = userRepos
 	} else {
+		// if is main view, get readme of user
 		homeView = "views/user/user"
+		readme, err := git.GetReadme(visitedUsername, visitedUsername)
+		if err != nil {
+			log.Println("could not fetch user profile readme:", err)
+		}
+
+		contextData.Readme = readme
 	}
 
 	visited, err := db.GetUserByName(visitedUsername)

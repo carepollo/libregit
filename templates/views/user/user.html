@@ -7,16 +7,9 @@
         <div class="col-sm-12 col-md-9">
             {{template "partials/user_tabs" .}}
 
-            <div class="card mb-2">
-                <div class="card-header">
-                    <i class="bi bi-book"></i>
-                    README.md
-                </div>
-                <div class="card-body">
-                    <pre class="card-text code" style="white-space: pre-wrap;">here goes readme text</pre>
-                </div>
-            </div>
-
+            {{if .Readme}}
+                {{template "partials/card_readme" .}}
+            {{end}}
         </div>
     </div>
 </div>
