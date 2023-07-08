@@ -46,6 +46,7 @@ func RegisterEndpoints(app *fiber.App) {
 	repos.Get("", controllers.RenderRepoHome)
 	repos.Get("/settings", middlewares.IsLogged, controllers.RenderRepoSettings)
 	repos.Post("/settings", middlewares.IsLogged, controllers.HandleUpdateRepoSettings)
+	repos.Get("/src/:branch/*", middlewares.IsLogged, controllers.RenderRepoExplorer)
 
 	// git operations
 	repos.Get("/info/refs", middlewares.AuthGitActions, controllers.HttpGitInfoRefs)

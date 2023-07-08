@@ -12,31 +12,21 @@
             <div class="card mb-2">
                 <div class="card-header">
                     <i class="bi bi-person-circle"></i>
-                    <b>username</b>
-                    <a href="#" class="link-underline-primary">last commit message</a>
+                    <b>{{.VisitedRepo.Owner}}</b>
+                    <a href="#" class="link-underline-primary">
+                        <i>last commit message</i>
+                    </a>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
+                        {{range .VisitedRepoDir}}
                         <li class="list-group-item">
-                            <i class="bi bi-archive-fill"></i>
-                            <a href="#">directory 1</a>
+                            <i 
+                                class="bi {{if .IsDirectory}} bi-archive-fill {{else}} bi-file-earmark {{end}}"
+                            ></i>
+                            <a href="{{.Location}}">{{.Name}}</a>
                         </li>
-                        <li class="list-group-item">
-                            <i class="bi bi-archive-fill"></i>
-                            <a href="#">directory2</a>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="bi bi-file-earmark"></i>
-                            <a href="#">file.go</a>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="bi bi-file-earmark"></i>
-                            <a href="#">index.js</a>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="bi bi-file-earmark"></i>
-                            <a href="#">README.md</a>
-                        </li>
+                        {{end}}
                     </ul>
                 </div>
             </div>

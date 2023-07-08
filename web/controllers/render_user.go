@@ -37,7 +37,7 @@ func RenderUser(ctx *fiber.Ctx) error {
 		homeView = "views/user/user"
 		readme, err := git.GetReadme(visitedUsername, visitedUsername)
 		if err != nil {
-			log.Println("could not fetch user profile readme:", err)
+			log.Println("could not fetch user profile readme, falling back to empty value:", err)
 		}
 
 		contextData.Readme = readme
@@ -47,6 +47,7 @@ func RenderUser(ctx *fiber.Ctx) error {
 	if err != nil {
 		return ctx.Redirect("/404")
 	}
+
 	contextData.VisitedUser = visited
 	contextData.ActiveTab = tab
 
