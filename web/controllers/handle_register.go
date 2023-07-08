@@ -70,7 +70,6 @@ func HandleRegister(ctx *fiber.Ctx) error {
 
 	mailMessage := fmt.Sprintf(`
 	<h1>Welcome to LibreCode!</h1>
-	<h4>We are happy that you chose us as your git provider</h4>
 	<p>
 		You are one step ahead of your awesome journey on your new account on LibreCode, 
 		to be able to log in you just need to <a href="%v/verify?userid=%v">verify</a> your account.
