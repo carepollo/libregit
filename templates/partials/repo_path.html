@@ -1,9 +1,0 @@
-<div>
-    <i class="bi bi-journals"></i>
-    <a href="/{{.User.Name}}" class="btn btn-link">{{.VisitedRepo.Owner}}</a>
-    /
-    <a href="{{.VisitedRepo.Location}}" class="btn btn-link">{{.VisitedRepo.Name}}</a>
-    <span class="badge text-bg-secondary">
-        {{if .VisitedRepo.IsPrivate}} Private {{else}} Public {{end}}
-    </span>
-</div>

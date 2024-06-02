@@ -1,16 +1,16 @@
 package main
 
-import (
-	"github.com/carepollo/librecode/db"
-	"github.com/carepollo/librecode/utils"
-	"github.com/carepollo/librecode/web"
-)
+import "github.com/carepollo/noxt/router"
 
 func main() {
-	defer db.Close()
+	tree := router.NewTree()
 
-	utils.LoadEnv()
+	tests := []string{
+		"/this/is/a/test",
+		"/this/is/a/possible/test",
+	}
 
-	app := web.CreateApp()
-	app.Listen(":8080")
+	for _, v := range tests {
+		tree.Insert(v)
+	}
 }
